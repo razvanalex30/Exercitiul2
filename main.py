@@ -1,16 +1,22 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+driver = webdriver.Chrome('./chromedriver')
+driver.get('https://www.python.org/')
+# print(driver.title)
+menu = driver.find_element_by_id('downloads').click()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+try:
+    main = WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH, "//*[@id='content']/div/section/div[1]/ol/li[1]")))
+    print(type(main.text))
+except:
+    driver.quit()
+
+
+
