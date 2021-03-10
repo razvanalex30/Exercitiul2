@@ -10,12 +10,19 @@ class CheckExamples:
 
     @classmethod
     def navigate(cls):
+        """
+        Method used to navigate to Python's Official Website
+        :return: driver, necessary for completing other tasks on the webpage
+        """
         driver = webdriver.Chrome('./chromedriver')
         driver.get('https://www.python.org/')
         return driver
 
     @classmethod
     def search(cls):
+        """
+        Method used to search in the search bar of the site and press Enter to find results
+        """
         driver = cls.navigate()
         search_bar = driver.find_element_by_name("q")
         search_bar.clear()
@@ -25,8 +32,10 @@ class CheckExamples:
 
     @classmethod
     def get_first_result(cls):
+        """
+        Method used to click on the first result from the search list
+        """
         driver = cls.search()
-
         results_view = WebDriverWait(driver, 10).until(
             ec.presence_of_element_located((By.XPATH, "//ul[@class='list-recent-events "
                                                       "menu']")))
@@ -38,6 +47,9 @@ class CheckExamples:
 
     @classmethod
     def open_content_examples(cls):
+        """
+        Method used to click on the Examples submenu from the Contents menu
+        """
         driver = cls.get_first_result()
         content_view = WebDriverWait(driver, 10).until(
             ec.presence_of_element_located((By.XPATH, "//article[@class='text']")))
@@ -48,6 +60,10 @@ class CheckExamples:
 
     @classmethod
     def verify_example_count(cls):
+        """
+        Verify the number of examples presented in the Examples paragraph of the page
+        :return: True if the number of examples in the Example sections is 5, False otherwise
+        """
         driver = cls.open_content_examples()
         examples_view = driver.find_element_by_xpath("//div[@id='examples']//ol[@class='arabic']")
         examples_list = examples_view.find_elements_by_tag_name("li")

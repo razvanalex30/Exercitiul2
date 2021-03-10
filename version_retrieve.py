@@ -16,7 +16,7 @@ class VersionRetrieve:
         """
         Method used to retrieve the Python Version
         :param input_str: Python Version string obtained from the site
-        :return: Retain only the version number
+        :return: Retains only the version number
         """
         version_number = re.findall(r'[0-9]+.[0-9]+.[0-9]+', input_str)
         return version_number[0]
