@@ -7,20 +7,35 @@ import re
 
 
 class VersionRetrieve:
+    """
+    Class used to retrieve the last Python Version from Python's official website
+    """
 
     @staticmethod
     def string_parse(input_str):
+        """
+        Method used to retrieve the Python Version
+        :param input_str: Python Version string obtained from the site
+        :return: Retain only the version number
+        """
         version_number = re.findall(r'[0-9]+.[0-9]+.[0-9]+', input_str)
         return version_number[0]
 
     @classmethod
     def navigate(cls):
+        """
+        Method used to start a Chrome Websession and navigate to Python's Official Website
+        :return: driver, necessary for completing other tasks on the webpage
+        """
         driver = webdriver.Chrome('./chromedriver')
         driver.get('https://www.python.org/')
         return driver
 
     @classmethod
     def find_path(cls):
+        """
+        Method used to find the path to Downloads -> All releases menu
+        """
         driver = cls.navigate()
         menu = driver.find_element_by_xpath(
             "//ul[@class='navigation menu']//li[contains(@class,'tier-1 element-')]/a[text()='Downloads']")
@@ -33,6 +48,9 @@ class VersionRetrieve:
 
     @classmethod
     def retrieve_version(cls):
+        """
+        Method used to retrieve the last python version from the table available in All releases
+        """
         driver = cls.find_path()
         last_version = "The most recent Python version is: "
         all_releases = WebDriverWait(driver, 10).until(ec.presence_of_element_located
