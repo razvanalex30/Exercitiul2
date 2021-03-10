@@ -16,15 +16,21 @@ class VersionRetrieve:
     @classmethod
     def find_path(cls):
         driver = cls.navigate()
-        menu = driver.find_element_by_xpath("//ul[@class='navigation menu']//li[contains(@class,'tier-1 element-')]/a[text("
-                                     ")='Downloads']")
-        last_version = "The most recent Python version is:"
+        menu = driver.find_element_by_xpath(
+            "//ul[@class='navigation menu']//li[contains(@class,'tier-1 element-')]/a[text("
+            ")='Downloads']")
         ac = ActionChains(driver)
         ac.move_to_element(menu).perform()
-        driver.find_element_by_xpath("//ul[@class='navigation menu']//ul[@class='subnav menu']//li[contains(@class,'tier-2 element-')]//a[text()='All releases']").click()
-
+        driver.find_element_by_xpath(
+            "//ul[@class='navigation menu']//ul[@class='subnav menu']//li[contains(@class,'tier-2 element-')]//a["
+            "text()='All releases']").click()
+        return driver
+    @classmethod
+    def retrieve_version(cls):
+        driver=cls.find_path()
+        last_version = "The most recent Python version is:"
         all_releases = WebDriverWait(driver, 10).until(ec.presence_of_element_located
-                                               ((By.XPATH, "//*[@id='content']/div/section/div[2]/ol")))
+                                                       ((By.XPATH, "//*[@id='content']/div/section/div[2]/ol")))
         versions = all_releases.find_elements_by_tag_name("li")
         for version in versions:
             header = version.find_element_by_class_name("release-number")
@@ -32,5 +38,6 @@ class VersionRetrieve:
             break
         return last_version
 
+
 # VersionRetrieve.navigate()
-print(VersionRetrieve.find_path())
+print(VersionRetrieve.retrieve_version())
