@@ -75,6 +75,12 @@ class CheckExamples:
 
         else:
             print("No, there are {} examples".format(str(len(examples_list))))
+        return driver
+
+    @classmethod
+    def driver_quit(cls):
+        driver = cls.verify_example_count()
+        driver.quit()
 
 
-CheckExamples.verify_example_count()
+CheckExamples.driver_quit()

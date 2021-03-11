@@ -30,7 +30,7 @@ class VersionRetrieve:
         """
         chrome_options = Options()
         chrome_options.add_experimental_option("detach", True)
-        driver = webdriver.Chrome('./chromedriver',options=chrome_options)
+        driver = webdriver.Chrome('./chromedriver', options=chrome_options)
         driver.get('https://www.python.org/')
         return driver
 
