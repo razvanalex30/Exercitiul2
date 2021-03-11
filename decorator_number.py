@@ -68,9 +68,9 @@ class CheckExamples:
         examples_view = driver.find_element_by_xpath("//div[@id='examples']//ol[@class='arabic']")
         examples_list = examples_view.find_elements_by_tag_name("li")
         if len(examples_list) == 5:
-            return True
+            return "Yes, there are " + str(len(examples_list)) + " examples."
         else:
-            return False
+            return "No, there are " + str(len(examples_list)) + " examples."
 
 
 print(CheckExamples.verify_example_count())
