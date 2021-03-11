@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver import ActionChains
+from selenium.webdriver.chrome.options import Options
 
 
 class CheckExamples:
@@ -14,7 +15,9 @@ class CheckExamples:
         Method used to navigate to Python's Official Website
         :return: driver, necessary for completing other tasks on the webpage
         """
-        driver = webdriver.Chrome('./chromedriver')
+        chrome_options = Options()
+        chrome_options.add_experimental_option("detach", True)
+        driver = webdriver.Chrome('./chromedriver', options=chrome_options)
         driver.get('https://www.python.org/')
         return driver
 
@@ -67,10 +70,11 @@ class CheckExamples:
         driver = cls.open_content_examples()
         examples_view = driver.find_element_by_xpath("//div[@id='examples']//ol[@class='arabic']")
         examples_list = examples_view.find_elements_by_tag_name("li")
-        if len(examples_list) == 4:
-            return "Yes, there are {} examples".format(str(len(examples_list)))
+        if len(examples_list) == 5:
+            print("Yes, there are {} examples".format(str(len(examples_list))))
+
         else:
-            return "No, there are {} examples".format(str(len(examples_list)))
+            print("No, there are {} examples".format(str(len(examples_list))))
 
 
-print(CheckExamples.verify_example_count())
+CheckExamples.verify_example_count()

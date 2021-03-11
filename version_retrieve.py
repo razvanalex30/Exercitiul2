@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver import ActionChains
+from selenium.webdriver.chrome.options import Options
 import re
 
 
@@ -27,7 +28,9 @@ class VersionRetrieve:
         Method used to start a Chrome Websession and navigate to Python's Official Website
         :return: driver, necessary for completing other tasks on the webpage
         """
-        driver = webdriver.Chrome('./chromedriver')
+        chrome_options = Options()
+        chrome_options.add_experimental_option("detach", True)
+        driver = webdriver.Chrome('./chromedriver',options=chrome_options)
         driver.get('https://www.python.org/')
         return driver
 
