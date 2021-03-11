@@ -67,10 +67,10 @@ class CheckExamples:
         driver = cls.open_content_examples()
         examples_view = driver.find_element_by_xpath("//div[@id='examples']//ol[@class='arabic']")
         examples_list = examples_view.find_elements_by_tag_name("li")
-        if len(examples_list) == 5:
-            return "Yes, there are " + str(len(examples_list)) + " examples."
+        if len(examples_list) == 4:
+            return "Yes, there are {} examples".format(str(len(examples_list)))
         else:
-            return "No, there are " + str(len(examples_list)) + " examples."
+            return "No, there are {} examples".format(str(len(examples_list)))
 
 
 print(CheckExamples.verify_example_count())
