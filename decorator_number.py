@@ -5,6 +5,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
+from functools import wraps
+
+
+def decorator_driver_quit(func):
+    @wraps(func)
+    def wrapper():
+        print("The process has started!")
+        func()
+        print("Driver was stopped successfully!")
+        return func
+    return wrapper
 
 
 class CheckExamples:
@@ -77,10 +88,12 @@ class CheckExamples:
             print("No, there are {} examples".format(str(len(examples_list))))
         return driver
 
-    @classmethod
-    def driver_quit(cls):
-        driver = cls.verify_example_count()
+    @staticmethod
+    @decorator_driver_quit
+    def driver_quit():
+        driver = CheckExamples.verify_example_count()
         driver.quit()
+        print("The process was completed!")
 
 
 CheckExamples.driver_quit()
