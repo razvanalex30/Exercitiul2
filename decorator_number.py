@@ -13,7 +13,7 @@ def decorator_driver_quit(func):
     def wrapper(*args, **kwargs):
         driver = func(*args, **kwargs)
         print("Process executed!")
-        driver.quit()
+        driver.close()
         print("Driver was stopped successfully!")
 
     return wrapper
