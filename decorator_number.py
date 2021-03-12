@@ -38,6 +38,7 @@ class CheckExamples:
         """
         Method used to search in the search bar of the site and press Enter to find results
         """
+        self.navigate()
         search_bar = self.driver.find_element_by_name("q")
         search_bar.clear()
         search_bar.send_keys("decorator")
@@ -47,6 +48,7 @@ class CheckExamples:
         """
         Method used to click on the first result from the search list
         """
+        self.search()
         results_view = WebDriverWait(self.driver, 10).until(
             ec.presence_of_element_located((By.XPATH, "//ul[@class='list-recent-events "
                                                       "menu']")))
@@ -59,6 +61,7 @@ class CheckExamples:
         """
         Method used to click on the Examples submenu from the Contents menu
         """
+        self.get_first_result()
         content_view = WebDriverWait(self.driver, 10).until(
             ec.presence_of_element_located((By.XPATH, "//article[@class='text']")))
         content_view_example = content_view.find_element_by_xpath("//ul[@class='simple']//a[text()='Examples']")
@@ -71,6 +74,7 @@ class CheckExamples:
         Verify the number of examples presented in the Examples paragraph of the page
         :return: True if the number of examples in the Example sections is 5, False otherwise
         """
+        self.open_content_examples()
         examples_view = self.driver.find_element_by_xpath("//div[@id='examples']//ol[@class='arabic']")
         examples_list = examples_view.find_elements_by_tag_name("li")
         if len(examples_list) == 5:
@@ -82,8 +86,4 @@ class CheckExamples:
 
 
 a = CheckExamples()
-a.navigate()
-a.search()
-a.get_first_result()
-a.open_content_examples()
 a.verify_example_count()
