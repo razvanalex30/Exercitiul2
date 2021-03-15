@@ -84,6 +84,9 @@ class VersionRetrieve:
         if len(release_list) > 0:
             print("Yes, there are {} versions newer than the {} version".format(len(release_list),
                                                                                 self.last_active_version))
+            print("The versions are:")
+            for elem in release_list:
+                print(str(elem['release_version']) + " released on: " + elem['release_date'].strftime("%Y-%b-%d"))
         else:
             print("There are no versions newer than the {} version".format(self.last_active_version))
 
