@@ -1,16 +1,18 @@
 from selenium.webdriver import ActionChains
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+# from selenium import webdriver
+# from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
+
+
+# from selenium.webdriver.common.by import By
 
 
 class PrimaryPage:
 
-    def __init__(self,driver):
+    def __init__(self, driver):
         self.driver = driver
 
-    def navigate_menu_submenu(self,menu,submenu):
+    def navigate_menu_submenu(self, menu, submenu):
         position = self.driver.find_element_by_xpath(
             f"//ul[@class='navigation menu']//li[contains(@class,'tier-1 element-')]/a[text()='{menu}']")
         ac = ActionChains(self.driver)
@@ -19,7 +21,7 @@ class PrimaryPage:
             "//ul[@class='navigation menu']//ul[@class='subnav menu']//li[contains(@class,'tier-2 element-')]//a["
             f"text()='{submenu}']").click()
 
-    def search(self,search_string):
+    def search(self, search_string):
         """
         Method used to search in the search bar of the site and press Enter to find results
         """
@@ -27,4 +29,3 @@ class PrimaryPage:
         search_bar.clear()
         search_bar.send_keys(search_string)
         search_bar.send_keys(Keys.RETURN)
-

@@ -7,6 +7,11 @@ from result_page import ResultPage
 from decorator_page import DecoratorPage
 
 
+# to be done:
+# optimize the code
+# create instances for the classes
+# use the decorator for the driver in order to initialize the driver and close the driver afterwards
+
 class TestPage:
 
     @classmethod
@@ -16,13 +21,17 @@ class TestPage:
         cls.driver = webdriver.Chrome('./chromedriver', options=chrome_options)
         cls.driver.get('https://www.python.org/')
 
-    def test(self):
+    def test_downloads(self):
         driver = self.driver
         primary_page = PrimaryPage(driver)
-        # primary_page.navigate_menu_submenu("Downloads","All releases")
+        primary_page.navigate_menu_submenu("Downloads", "All releases")
+        downloads_page = DownloadPage(driver)
+        downloads_page.retrieve_version()
+
+    def test_decorators(self):
+        driver = self.driver
+        primary_page = PrimaryPage(driver)
         primary_page.search("decorator")
-        # downloads_page = DownloadPage(driver)
-        # downloads_page.retrieve_version()
         result_page = ResultPage(driver)
         result_page.get_first_result()
         decorator_page = DecoratorPage(driver)
@@ -31,4 +40,5 @@ class TestPage:
 
 TestPage().navigate()
 t = TestPage()
-t.test()
+t.test_decorators()
+# t.test_downloads()
