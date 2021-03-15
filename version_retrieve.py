@@ -1,9 +1,10 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
+import datetime
 import re
 
 
@@ -53,14 +54,26 @@ class VersionRetrieve:
         Method used to retrieve the last python version from the table available in All releases
         """
         self.find_path()
-        last_version = "The most recent Python version is: "
-        all_releases = WebDriverWait(self.driver, 10).until(ec.presence_of_element_located
-                                                            ((By.XPATH, "//*[@id='content']/div/section/div[2]/ol")))
-        version = all_releases.find_elements_by_tag_name("li")[0]
-        header = version.find_element_by_class_name("release-number")
-        version_number = self.string_parse(header.text)
-        last_version += version_number
-        print(last_version)
+        # last_version = "The most recent Python version is: "
+        all_releases = self.driver.find_element_by_xpath("//*[@id='content']/div/section/div[2]/ol")
+        versions = all_releases.find_elements_by_tag_name("li")
+        release_list = []
+        for version in versions:
+            version_dict = {'release_version': None, 'release_date': None}
+            header = version.find_element_by_class_name("release-number")
+            header_2 = version.find_element_by_class_name("release-date")
+            # version_number = self.string_parse(header.text)
+            version_dict['release_version'] = header.text
+
+            # last_version += version_number
+            print(header.text)
+
+    def retrieve_table_version(self):
+        self.find_path()
+        last_python_version = self.driver.find_element_by_xpath("//ol[@class='list-row-container menu']//li//span["
+                                                                "text()='3.9']")
+        last_active_version = last_python_version.text
+        print(last_active_version)
 
 
 version_last = VersionRetrieve()
