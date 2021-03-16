@@ -34,7 +34,6 @@ class DecoratorPage:
         ac2 = ActionChains(self.driver)
         ac2.move_to_element(content_view_example).click(content_view_example).perform()
 
-    @decorator_driver_quit
     def verify_example_count(self):
         """
         Verify the number of examples presented in the Examples paragraph of the page
@@ -48,4 +47,4 @@ class DecoratorPage:
 
         else:
             print("No, there are {} examples".format(str(len(examples_list))))
-        return self.driver
+        # return self.driver

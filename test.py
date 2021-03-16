@@ -5,21 +5,16 @@ from primary_page import PrimaryPage
 from downloads_page import DownloadPage
 from result_page import ResultPage
 from decorator_page import DecoratorPage
+import unittest
 
 
-# to be done:
-# optimize the code
-# create instances for the classes
-# use the decorator for the driver in order to initialize the driver and close the driver afterwards
+class TestPage(unittest.TestCase):
 
-class TestPage:
-
-    @classmethod
-    def navigate(cls):
+    def setUp(self):
         chrome_options = Options()
         chrome_options.add_experimental_option("detach", True)
-        cls.driver = webdriver.Chrome('./chromedriver', options=chrome_options)
-        cls.driver.get('https://www.python.org/')
+        self.driver = webdriver.Chrome('./chromedriver', options=chrome_options)
+        self.driver.get('https://www.python.org/')
 
     def test_downloads(self):
         driver = self.driver
@@ -37,8 +32,9 @@ class TestPage:
         decorator_page = DecoratorPage(driver)
         decorator_page.verify_example_count()
 
+    def tearDown(self):
+        self.driver.close()
 
-TestPage().navigate()
-t = TestPage()
-t.test_decorators()
-# t.test_downloads()
+
+if __name__ == "__main__":
+    unittest.main()
