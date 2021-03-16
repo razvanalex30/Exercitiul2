@@ -6,7 +6,19 @@ from downloads_page import DownloadPage
 from result_page import ResultPage
 from decorator_page import DecoratorPage
 import unittest
+# from functools import wraps
 
+
+# def decorator_driver_quit(func):
+#     @wraps(func)
+#     def wrapper(*args, **kwargs):
+#         driver = TestPage.setUp()
+#         func(*args,**kwargs)
+#         print("Process executed!")
+#         driver.close()
+#         print("Driver was stopped successfully!")
+#
+#     return wrapper
 
 class TestPage(unittest.TestCase):
 
