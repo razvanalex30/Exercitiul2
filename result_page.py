@@ -14,7 +14,7 @@ class ResultPage:
     def __init__(self, driver):
         self.driver = driver
 
-    def get_first_result(self):
+    def get_first_result(self,result):
         """
         Method used to click on the first result from the search list
         """
@@ -22,6 +22,6 @@ class ResultPage:
             ec.presence_of_element_located((By.XPATH, "//ul[@class='list-recent-events "
                                                       "menu']")))
         first_result = results_view.find_element_by_xpath(
-            "//a[text()='PEP 318 -- Decorators for Functions and Methods']")
+            f"//a[text()='{result}']")
         ac = ActionChains(self.driver)
         ac.move_to_element(first_result).click(first_result).perform()
