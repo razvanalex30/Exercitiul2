@@ -14,21 +14,25 @@ class TestPage(unittest.TestCase):
         chrome_options = Options()
         chrome_options.add_experimental_option("detach", True)
         self.driver = webdriver.Chrome('./chromedriver', options=chrome_options)
+        self.driver.maximize_window()
         self.driver.get('https://www.python.org/')
 
     def test_downloads(self):
         try:
+            print("Test_downloads in progress...")
             driver = self.driver
             primary_page = PrimaryPage(driver)
             primary_page.navigate_menu_submenu("Downloads", "All releases")
             downloads_page = DownloadPage(driver)
             downloads_page.retrieve_version()
+            print("Test executed successfully!")
         except Exception as e:
             print(e, "Test_downloads error")
             pass
 
     def test_decorators(self):
         try:
+            print("Test_decorators in progres...")
             driver = self.driver
             primary_page = PrimaryPage(driver)
             primary_page.search("decorator")
@@ -36,6 +40,7 @@ class TestPage(unittest.TestCase):
             result_page.get_first_result("PEP 318 -- Decorators for Functions and Methods")
             decorator_page = DecoratorPage(driver)
             decorator_page.verify_example_count()
+            print("Test executed successfully!")
         except Exception as e:
             print(e, "Test_decorators error")
             pass
